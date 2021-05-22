@@ -17,18 +17,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Session settings
-app.use(
-  session({
-    secret: "jIPEyvTVBGPu7vfA",
-    resave: true,
-    rolling: true,
-    saveUninitialized: false,
-    cookie: {
-      //secure: true,
-      maxAge: 1000 * 60 * 15, //session expires in 15 minutes
-    },
-  })
-);
+// app.use(
+//   session({
+//     secret: "jIPEyvGAFPu7vfA",
+//     resave: true,
+//     rolling: true,
+//     saveUninitialized: false,
+//     cookie: {
+//       //secure: true,
+//       maxAge: 1000 * 60 * 15, //session expires in 15 minutes
+//     },
+//   })
+// );
 
 // Allow crossed domain requests
 app.all("*", function (req, res, next) {

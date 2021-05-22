@@ -1,0 +1,21 @@
+{
+    "apps": [
+      {
+        "name": "hopify",
+        "script": "bin/www",
+        "watch": true,
+        "watch_delay": 1000,
+        "ignore_watch": ["public", "database", "logs", "node_modules"],
+        "env": {
+          "PORT": 3000,
+          "DATABASE": "joon"
+        },
+        "log_date_format": "YYYY-MM-DD HH:mm:SS",
+        "log_file": "logs/homework.log",
+        "error_file": "logs/homework-err.log",
+        "out_file": "logs/homework-out.log",
+        "pid_file": "logs/homework.pid",
+        "exec_mode": "fork_mode"
+      }
+    ]
+  }
