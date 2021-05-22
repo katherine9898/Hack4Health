@@ -1,12 +1,24 @@
 <template>
-  <div id="">hi hello</div>
+  <div id="">
+    <van-button type="gh" text="Hi" color="black">Warning</van-button>
+    <van-rate
+      v-model="value"
+      :size="25"
+      color="#ffd21e"
+      void-icon="star"
+      void-color="#eee"
+    />
+  </div>
 </template>
 
 <script>
 export default {
   name: "main",
   data() {
-    return {};
+    return {
+      number: 0,
+      cellphone: "IPhone",
+    };
   },
   mounted() {},
 };
