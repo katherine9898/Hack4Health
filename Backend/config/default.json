@@ -1,0 +1,16 @@
+{
+	"hopify": {
+		"db": {
+			"mysql": {
+				"host": "bike.kaka888.net",
+				"user": "joon",
+				"password": "ISxFrrQsJCgmBNcy",
+				"port": "3306",
+				"database": "Hack4Health",
+				"max_connections": 5,
+				"multipleStatements" : false
+			}
+		},
+		"comment": "Database connection configuration file for Hopify"
+	}
+}
