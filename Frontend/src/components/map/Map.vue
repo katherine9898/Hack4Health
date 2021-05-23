@@ -1,10 +1,12 @@
 <template>
   <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
   <div>
-    <div>
-      
+    <div class="filterBar">
+      <img @click="showHospital" src='../../assets/location.png' class="iconButton" aria-placeholder="Hospitals"/>
+      <br>
+      <img @click="showVaccinceClinic" src='../../assets/vaccinated.png' class="iconButton" aria-placeholder="Vaccine Clinics"/>
     </div>
-    <br>
+    
     <GmapMap
       :center='center'
       :zoom='12'
@@ -14,17 +16,17 @@
         :key="m.hospital_id"
         v-if="!hideHospitals"
         v-for="(m) in hospitalMarkers"
-        :position="m.position"
+        :position="{ lat: parseFloat(m.hospital_latitude), lng: parseFloat(m.hospital_longitude)}"
         :icon="{ url: require('../../assets/location.png'), scaledSize: {width: 28, height: 28}}" />
-        @click="center=m.position"
+        @click="openSideSheet(m.hospital_id)"
       />
       <GmapMarker
         :key="m.hospital_id"
         v-if="!hideVaccineClinics"
         v-for="(m) in vaccineMarkers"
-        :position="m.position"
+        :position="{ lat: parseFloat(m.hospital_latitude), lng: parseFloat(m.hospital_longitude) }"
         :icon="{ url: require('../../assets/vaccinated.png'), scaledSize: {width: 40, height: 40}}" />
-        @click="center=m.position"
+        @click="openSideSheet(m.hospital_id)"
       />
     </GmapMap>
     
@@ -32,23 +34,21 @@
 </template>
 
 <script>
+
 export default {
   name: 'Map',
   created(){
     this.$axios({
             method: "GET",
             headers: { "content-type": "application/json" },
-            url: "/api/hospital/all"
+            url: "/api/hospital"
           })
             .then((res) => {
               if (0 != res.data.code) {
                 return self.$toast.fail(res.data.message);
               }
-              this.hospitalMarkers=res.data.data;
-              this.vaccineMarkers=(res.data.data).filter(m => m.hospital_is_available_for_vaccine == 1);
-              //self.$toast.clear();
-              //this.$router.push({ name: "SideSheet" });
-              
+              this.hospitalMarkers=res.data.data.filter(m => m.hospital_is_available_for_vaccine.data[0] == 0);
+              this.vaccineMarkers=(res.data.data).filter(m => m.hospital_is_available_for_vaccine.data[0] == 1);
 
             })
             .catch(function (error) {
@@ -90,7 +90,7 @@ export default {
             headers: { "content-type": "application/json" },
             url: "/api/hospital/hospitalId",
             data: {
-              hospital_id: currentMarkerId
+              hospital_id: locationId
             },
           })
             .then((res) => {
@@ -106,10 +106,26 @@ export default {
             .catch(function (error) {
               self.$toast.fail(error);
             });
+    },
+    showHospital() {
+      this.hideHospitals = !this.hideHospitals; 
+    },
+    showVaccinceClinic(){
+      this.hideVaccineClinics = !this.hideVaccineClinics;
     }
   },
 }
 </script>
 
 <style scoped>
+.filterBar{
+position: absolute;
+top: 55px;
+right: 15px;
+z-index: 1;
+}
+.iconButton{
+  width: 30px;
+  height: 30px;
+}
 </style>

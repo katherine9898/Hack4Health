@@ -12,6 +12,7 @@ import enUS from 'vant/es/locale/lang/en-US';
 import axios from 'axios'
 import * as VueGoogleMaps from 'vue2-google-maps'
 
+
 Vue.config.productionTip = false
 
 Vue.use(Vant);
