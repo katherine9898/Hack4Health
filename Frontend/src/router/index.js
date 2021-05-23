@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Main from "@/components/user/Main";
-import SideSheet from "@/components/user/SideSheet";
+import Index from "@/components/Index";
+import Map from "@/components/Map";
+import SideSheet from "@/components/user/SideSheet"
 
 Vue.use(Router);
 
@@ -9,13 +10,18 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "Main",
-      component: Main
+      name: "Index",
+      component: Index
+    },
+    {
+      path: "/map",
+      name: "Map",
+      component: Map
     },
     {
       path: "/SideSheet",
       name: "SideSheet",
       component: SideSheet
-    }
+    },
   ]
 });

@@ -1,13 +1,13 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const session = require("express-session");
 
 const userRouter = require("./routes/user");
-var hospitalRouter = require("./routes/hospital");
+const hospitalRouter = require("./routes/hospital");
 
-var app = express();
+const app = express();
 
 app.set("trust proxy", 1);
 app.use(logger("dev"));
@@ -17,18 +17,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Session settings
-// app.use(
-//   session({
-//     secret: "jIPEyvGAFPu7vfA",
-//     resave: true,
-//     rolling: true,
-//     saveUninitialized: false,
-//     cookie: {
-//       //secure: true,
-//       maxAge: 1000 * 60 * 15, //session expires in 15 minutes
-//     },
-//   })
-// );
+app.use(
+  session({
+    secret: "jIPEyvGAFPu7vfA",
+    resave: true,
+    rolling: true,
+    saveUninitialized: false,
+    cookie: {
+      //secure: true,
+      maxAge: 1000 * 60 * 15, //session expires in 15 minutes
+    },
+  })
+);
 
 // Allow crossed domain requests
 app.all("*", function (req, res, next) {
@@ -43,7 +43,7 @@ app.all("*", function (req, res, next) {
   }
 });
 
-app.use("/hospital", hospitalRouter);
-app.use("/user", userRouter);
+app.use("/api/hospital", hospitalRouter);
+app.use("/api/user", userRouter);
 
 module.exports = app;
