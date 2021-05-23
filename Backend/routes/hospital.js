@@ -17,5 +17,28 @@ router.post("/hospital", async function (req, res, next) {
   }
 });
 
+// Search by id
+router.post("/hospitalId", async function (req, res, next) {
+  try {
+    params = [req.body.hospital_id]
+    let SQL = "SELECT hospital_id, hospital_name, hospital_latitude, hospital_longitude, hospital_is_available_for_vaccine FROM hospital WHERE hospital_id = '%?%'"
+    let result = await database.QueryMySQL(SQL, params);
+    return utils.SendResult(res, result);
+  }
+  catch (err) {
+    utils.SendError(res, err);
+  }
+});
 
+// get all location
+router.get("/", async function (req, res, next) {
+  try {
+    let SQL = "SELECT hospital_id, hospital_name, hospital_latitude, hospital_longitude, hospital_is_available_for_vaccine FROM hospital"
+    let result = await database.QueryMySQL(SQL);
+    return utils.SendResult(res, result);
+  }
+  catch (err) {
+    utils.SendError(res, err);
+  }
+});
 module.exports = router;
