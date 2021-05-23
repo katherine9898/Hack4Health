@@ -30,8 +30,9 @@ export default {
     };
   },
   methods: {
-    go_to_map: () => {
-      window.open('/#/map')
+    go_to_map() {
+        let self = this;
+        self.$router.push({ path: 'Map' })
     },
     checkLogin() {
       // Navigate to User_Main if the current user has already logged in

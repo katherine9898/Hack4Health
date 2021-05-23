@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Main from "@/components/Index";
+import Index from "@/components/Index";
 import Map from "@/components/Map";
 import Profile from "@/components/Profile";
-import SideSheet from "@/components/user/SideSheet"
+import SideSheet from "@/components/SideSheet"
 
 Vue.use(Router);
 
@@ -12,7 +12,7 @@ export default new Router({
     {
       path: "/",
       name: "Index",
-      component: Main
+      component: Index
     },
     {
       path: "/map",
