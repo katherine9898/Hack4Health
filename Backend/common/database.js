@@ -8,7 +8,7 @@ module.exports.QueryMySQL = function () {
   return new Promise(function (resolve, reject) {
     if (!connection) {
       let config_mysql = config.get(
-        (process.env.DATABASE || "joon") + ".db.mysql"
+        (process.env.DATABASE || "hopify") + ".db.mysql"
       );
       connection = mysql.createPool({
         host: config_mysql.host,

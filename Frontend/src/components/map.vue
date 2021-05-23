@@ -1,13 +1,6 @@
 <template>
   <div id="">
-    <van-button type="gh" text="Hi" color="black">Warning</van-button>
-    <van-rate
-      v-model="value"
-      :size="25"
-      color="#ffd21e"
-      void-icon="star"
-      void-color="#eee"
-    />
+    <van-button type="gh" :color="English">{{ number }}</van-button>
   </div>
 </template>
 
@@ -18,6 +11,7 @@ export default {
     return {
       number: 0,
       cellphone: "IPhone",
+      English: "black",
     };
   },
   mounted() {},
