@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "main",
+  name: "Map",
   data() {
     return {
       number: 0,

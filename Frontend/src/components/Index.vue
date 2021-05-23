@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "main",
+  name: "Index",
   data() {
     return {
       googleIcon: require("@/assets/sign-in-with-google.png"),
@@ -21,18 +21,18 @@ export default {
         message: "Loading...",
         forbidClick: true,
       });
-
+      console.log(info);
       this.$axios({
         method: "POST",
         headers: { "content-type": "application/json" },
         url: "/api/user/login",
         data: {
-          googleID: info.NT,
-          fullName: info.Ve,
-          givenName: info.xV,
-          familyName: info.sT,
-          profileImage: info.uK,
-          email: info.pu,
+          googleID: info.getId(),
+          fullName: info.getName(),
+          givenName: info.getGivenName(),
+          familyName: info.getFamilyName(),
+          profileImage: info.getImageUrl(),
+          email: info.getEmail(),
         },
       })
         .then((res) => {
@@ -63,10 +63,31 @@ export default {
         }
       );
     },
+
+    checkLogin() {
+      // Navigate to User_Main if the current user has already logged in
+      let self = this;
+      self
+        .$axios({
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          url: "/api/user/checkLogin",
+          data: {},
+        })
+        .then((res) => {
+          if (0 === res.data.code) {
+            self.$toast.clear();
+            console.log(res);
+            self.$router.push({ name: "Map" });
+          }
+        })
+        .catch(function (error) {});
+    },
   },
   mounted() {
     let self = this;
 
+    self.checkLogin();
     gapi.load("auth2", () => {
       self.auth2 = gapi.auth2.init({
         client_id:
