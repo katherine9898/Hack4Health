@@ -2,41 +2,28 @@
   <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
   <div>
     <div>
-      <h2>Search and add a pin</h2>
-      <GmapAutocomplete
-        @place_changed='setPlace'
-      />
-      <button
-        @click='addMarker'
-      >
-        Add
-      </button>
+      
     </div>
     <br>
     <GmapMap
       :center='center'
       :zoom='12'
-      style='width:100%;  height: 400px;'
+      style="width: 100%; height: 100vh;"
     >
       <GmapMarker
-        :key="index"
+        :key="m.hospital_id"
         v-if="!hideHospitals"
-        v-for="(m, index) in hospitalMarkers"
+        v-for="(m) in hospitalMarkers"
         :position="m.position"
+        :icon="{ url: require('../../assets/location.png'), scaledSize: {width: 28, height: 28}}" />
         @click="center=m.position"
       />
       <GmapMarker
-        :key="index"
+        :key="m.hospital_id"
         v-if="!hideVaccineClinics"
-        v-for="(m, index) in greenVaccineMarkers"
+        v-for="(m) in vaccineMarkers"
         :position="m.position"
-        @click="center=m.position"
-      />
-      <GmapMarker
-        :key="index"
-        v-if="!hideVaccineClinics"
-        v-for="(m, index) in redVaccineMarkers"
-        :position="m.position"
+        :icon="{ url: require('../../assets/vaccinated.png'), scaledSize: {width: 40, height: 40}}" />
         @click="center=m.position"
       />
     </GmapMap>
@@ -47,9 +34,30 @@
 <script>
 export default {
   name: 'Map',
+  created(){
+    this.$axios({
+            method: "GET",
+            headers: { "content-type": "application/json" },
+            url: "/api/hospital/all"
+          })
+            .then((res) => {
+              if (0 != res.data.code) {
+                return self.$toast.fail(res.data.message);
+              }
+              this.hospitalMarkers=res.data.data;
+              this.vaccineMarkers=(res.data.data).filter(m => m.hospital_is_available_for_vaccine == 1);
+              //self.$toast.clear();
+              //this.$router.push({ name: "SideSheet" });
+              
+
+            })
+            .catch(function (error) {
+              self.$toast.fail(error);
+            });
+  },
   data() {
     return {
-      center: { lat: 45.508, lng: -73.587 },
+      center: {},
       currentPlace: null,
       markers2: [{position: { lat: 45.508, lng: -73.587 }}],
       markers: [],
@@ -57,8 +65,8 @@ export default {
       hideHospitals: false,
       hideVaccineClinics: false,
       hospitalMarkers: [],
-      greenVaccineMarkers: [],
-      redVaccineMarkers: [],
+      vaccineMarkers: [],
+      currenMarker: null,
     }
   },
   mounted() {
@@ -68,18 +76,6 @@ export default {
     setPlace(place) {
       this.currentPlace = place;
     },
-    addMarker() {
-      if (this.currentPlace) {
-        const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng(),
-        };
-        this.markers.push({ position: marker });
-        this.places.push(this.currentPlace);
-        this.center = marker;
-        this.currentPlace = null;
-      }
-    },
     geolocate: function() {
       navigator.geolocation.getCurrentPosition(position => {
         this.center = {
@@ -88,10 +84,32 @@ export default {
         };
       });
     },
+    openSideSheet(locationId) {
+      this.$axios({
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            url: "/api/hospital/hospitalId",
+            data: {
+              hospital_id: currentMarkerId
+            },
+          })
+            .then((res) => {
+              if (0 != res.data.code) {
+                return self.$toast.fail(res.data.message);
+              }
+              this.currentMarker=res.data.data;
+              //self.$toast.clear();
+              //this.$router.push({ name: "SideSheet" });
+              
+
+            })
+            .catch(function (error) {
+              self.$toast.fail(error);
+            });
+    }
   },
 }
 </script>
 
 <style scoped>
-
 </style>
