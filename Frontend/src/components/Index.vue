@@ -1,13 +1,15 @@
 <template>
   <div>
     <div class="header">
-      <van-row type="flex" justify="between">
-        <van-col class="logo" span="13">Hopify</van-col>
+      <van-row type="flex" justify="end">
+        <van-col class="logo" span="10">Hopify</van-col>
+        <van-col span="3"> <button>About Us</button></van-col>
         <van-col span="3"
-         class="loginBtn" ><van-button id="googleLogin" type="default" class= "btn" :icon="googleIcon">
-            Log in/Sign up
+          ><van-button id="googleLogin" type="default" :icon="googleIcon">
+            Google Login
           </van-button>
         </van-col>
+        <van-col span="3"> <button>Contact Us</button></van-col>
       </van-row>
     </div>
 
@@ -18,11 +20,6 @@
         book appointment with them 😷🏨
       </div>
     </div>
-    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="(image, index) in imgs" :key="index">
-        <img v-lazy="image" height="40%" width="40%"/>
-      </van-swipe-item>
-    </van-swipe>
   </div>
 </template>
 
@@ -35,10 +32,8 @@ export default {
       number: 0,
       cellphone: "IPhone",
       English: "black",
+
       img: "../assets/land-page.png",
-      imgs:['https://thoatviben.com/wp-content/uploads/2020/04/doctor-1.png',
-      'https://www.sait.ca/images/About%20SAIT/Administration/Departments/DoYourPart-icon-01.png',
-      'https://webstockreview.net/images/drug-clipart-medication-management-7.png']
     };
   },
   methods: {
@@ -147,14 +142,13 @@ export default {
   font-family: "Chela One", cursive;
   font-size: 50px;
   padding: 0px;
-  margin-left: 10px;
 }
 
 .header {
   background-color: #c5d5de;
   height: 1cm;
   width: 100%;
-  padding-bottom: 0.5cm;
+  padding: 0.5cm;
   list-style-type: none;
   font-size: 0.5cm;
 }
@@ -181,25 +175,5 @@ button {
 .body {
   padding: 20px;
   background-color: #c7e9f3;
-  border-radius: 15px;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-.loginBtn{
-  margin-top: 7px;
-  margin-right: 0;
-}
-.btn{
-  width: 145px;
-}
-.my-swipe .van-swipe-item {
-    color: #fff;
-    font-size: 20px;
-    line-height: 150px;
-    text-align: center;
-  }
-.my-swipe {
-  margin-top: 20px;
 }
 </style>
