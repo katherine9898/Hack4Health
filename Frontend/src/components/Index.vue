@@ -40,7 +40,7 @@ export default {
             return self.$toast.fail(res.data.message);
           }
           self.$toast.clear();
-          this.$router.push({ name: "Map" });
+          this.$router.push({ name: "Profile" });
         })
         .catch(function (error) {
           self.$toast.fail(error);
@@ -78,7 +78,7 @@ export default {
           if (0 === res.data.code) {
             self.$toast.clear();
             console.log(res);
-            self.$router.push({ name: "Map" });
+            self.$router.push({ name: "Profile" });
           }
         })
         .catch(function (error) {});

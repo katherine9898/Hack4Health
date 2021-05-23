@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Index from "@/components/Index";
+import Main from "@/components/Index";
 import Map from "@/components/Map";
+import Profile from "@/components/Profile";
 
 Vue.use(Router);
 
@@ -10,12 +11,17 @@ export default new Router({
     {
       path: "/",
       name: "Index",
-      component: Index
+      component: Main
     },
     {
       path: "/map",
       name: "Map",
       component: Map
+    },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: Profile
     }
   ]
 });
