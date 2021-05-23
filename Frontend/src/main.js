@@ -10,6 +10,7 @@ import 'vant/lib/index.css';
 import 'vant/lib/icon/local.css'
 import enUS from 'vant/es/locale/lang/en-US';
 import axios from 'axios'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.config.productionTip = false
 
@@ -17,6 +18,14 @@ Vue.use(Vant);
 Vue.use(Lazyload, {
   lazyComponent: true,
 });
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyCxRVELaTl0bEpkmRNnBntA77SKar5hY2U',
+    libraries: 'places',
+  }
+});
+
 Locale.use('en-US', enUS);
 
 Vue.prototype.$axios = axios;

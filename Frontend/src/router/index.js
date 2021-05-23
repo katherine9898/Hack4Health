@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Index from "@/components/Index";
-import Map from "@/components/Map";
 import Profile from "@/components/Profile";
 import SideSheet from "@/components/SideSheet"
+import Map from "@/components/map/Map";
 
 Vue.use(Router);
 
