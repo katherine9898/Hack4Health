@@ -1,6 +1,6 @@
 <template>
   <div id="">
-    <van-button type="gh" text="Hi" color="black">Warning</van-button>
+    <van-button type="gh" text="Hi" color="black">{{cellphone}}</van-button>
     <van-rate
       v-model="value"
       :size="25"
@@ -8,6 +8,9 @@
       void-icon="star"
       void-color="#eee"
     />
+
+    <van-button type="primary">Primary</van-button>
+
   </div>
 </template>
 
