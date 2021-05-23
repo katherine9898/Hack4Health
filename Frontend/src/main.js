@@ -1,5 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
 import Vue from "vue";
 import App from "./App";
 import router from "./router";
@@ -10,6 +11,7 @@ import "vant/lib/index.css";
 import "vant/lib/icon/local.css";
 import enUS from "vant/es/locale/lang/en-US";
 import axios from "axios";
+import * as VueGoogleMaps from "vue2-google-maps";
 
 Vue.config.productionTip = false;
 
@@ -19,6 +21,13 @@ Vue.use(Lazyload, {
 });
 Vue.use(Calendar);
 Locale.use("en-US", enUS);
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: "AIzaSyCxRVELaTl0bEpkmRNnBntA77SKar5hY2U",
+    libraries: "places"
+  }
+});
 
 Vue.prototype.$axios = axios;
 

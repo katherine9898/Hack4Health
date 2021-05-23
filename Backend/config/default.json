@@ -7,7 +7,7 @@
 				"password": "ISxFrrQsJCgmBNcy",
 				"port": "3306",
 				"database": "Hack4Health",
-				"max_connections": 5,
+				"max_connections": 1,
 				"multipleStatements" : false
 			}
 		},
